@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {NavLink} from 'react-router-dom'
 
-class Posts extends Component {
+class Posts extends Component { //threads
   constructor(props){
     super(props)
     this.state = {
@@ -22,7 +23,7 @@ class Posts extends Component {
   getPosts = (id) => {
     axios.get(`/topics/${id}/posts/`)
     .then((response) => this.setState({posts: response.data}))
-    .catch((error) => alert(error.messsage))
+    .catch((error) => console.log(error.messsage))
   }
 
   makePost = () => {
@@ -38,13 +39,12 @@ class Posts extends Component {
         <div>
           <ul>
             {this.state.posts.map((post) =>
-              <NavLink to={`/board/${topic.id}/threads`}>
                 <li key={post.id} className="card-panel">
-                  <h5>{post.title}</h5>
-                  <p>{post.content}</p>
+                  <NavLink to={`/posts/${post.id}/comments/`}>
+                    <h5>{post.title}</h5>
+                    <p>{post.content}</p>
+                  </NavLink>
                 </li>
-              </NavLink>
-
             )}
             <li className="card-panel">
               <form>

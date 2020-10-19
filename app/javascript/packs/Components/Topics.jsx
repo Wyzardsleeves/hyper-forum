@@ -6,7 +6,7 @@ import {NavLink} from 'react-router-dom'
 //redux
 import {connect} from 'react-redux'
 
-class Topics extends Component {
+class Topics extends Component { //boards
   constructor(props){
     super(props)
     this.state = {
@@ -20,7 +20,7 @@ class Topics extends Component {
   }
 
   getTopicList = () => {
-    axios.get('/topics')
+    axios.get('/topics/')
     .then((response) => this.setState({topics: response.data})) //this.props.dispatch.getTopics
     .catch((error) => console.log(error.message))
   }
@@ -39,7 +39,7 @@ class Topics extends Component {
         <div>
           <ul>
             {this.state.topics.map((topic) =>
-              <NavLink to={`/board/${topic.id}/threads`}>
+              <NavLink to={`/topics/${topic.id}/posts/`}>
                 <li key={topic.id} className="card-panel">
                   <h4>{topic.name}</h4>
                   <h5>{topic.description}</h5>
