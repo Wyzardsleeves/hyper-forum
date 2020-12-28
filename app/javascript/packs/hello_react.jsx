@@ -10,16 +10,9 @@ import Root from './Components/Root'
 import './assets/styles/App.css'
 
 //redux
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
-import helloReducer from './reducers/helloReducer'
-
-const store = createStore(helloReducer);
-
-store.dispatch({
-  type: 'LOG_HELLO'
-})
-
+import store from './redux/store'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class Posts extends Component { //threads
   constructor(props){
@@ -38,20 +38,23 @@ class Posts extends Component { //threads
         </div>
         <div>
           <ul>
-            {this.state.posts.map((post) =>
-                <li key={post.id} className="card-panel">
-                  <NavLink to={`/posts/${post.id}/comments/`}>
-                    <h5>{post.title}</h5>
-                    <p>{post.content}</p>
-                  </NavLink>
-                </li>
-            )}
             <li className="card-panel">
               <form>
-                <input className="input-field" type="text" placeholder="Comment here..." name="new_post_content" ref="new_post_content"/>
+                <input className="input-field" type="text" placeholder="New post..." name="new_post_content" ref="new_post_content"/>
                 <input className="btn btn-primary" value="Submit" type="button" onClick={this.makePost} />
               </form>
             </li>
+            {this.state.posts.map((post) =>
+                <li key={post.id} className="card-panel">
+                  <Link to={{
+                    pathname: `/posts/${post.id}/comments/`,
+                    commentProps: this.props.match.params.id
+                  }}>
+                    <h5>{post.title}</h5>
+                    <p>{post.content}</p>
+                  </Link>
+                </li>
+            )}
           </ul>
         </div>
       </section>
